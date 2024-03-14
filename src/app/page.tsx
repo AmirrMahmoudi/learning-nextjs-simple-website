@@ -1,7 +1,8 @@
+import { Colors } from './_components/colors/colors';
 export default function Home() {
   return (
-<div className="text-purple-600">
-    React application architecture
-</div>
+<>
+<Colors/>
+</>
   );
 }
