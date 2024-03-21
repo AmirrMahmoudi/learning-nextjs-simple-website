@@ -20,7 +20,9 @@ export default function Home() {
               کلاسبن می‌تونی بدون محدودیت به قله‌های بالاتر صعود کنی. ما همیشه
               هواتو داریم.
             </p>
-            {/* <Image src="/images/frameworks.png" alt="زبان ها" /> */}
+            <Button variant="accent" size="large" >
+              دوره های ری اکت و نکست
+            </Button>
             <Image
               className="grayscale mt-4 opacity-70 m-auto xl:m-0"
               src="/images/frameworks.png"
