@@ -1,28 +1,28 @@
-import { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./button";
+import { Meta,StoryObj } from '@storybook/react';
+import { Button } from './button';
+import { render } from 'react-dom';
 
-const meta: Meta<typeof Button> = {
-  component: Button,
-  tags: ["autodocs"],
-};
-
+const meta:Meta<typeof Button> ={
+    component:Button,
+    tags:["autodocs"]
+}
 export default meta;
 
-type Story = StoryObj<typeof Button>;
-export const BrandColors: Story = {
-  render: () => (
-    <>
-      <Button>Default</Button>
-      <Button variant="neutral">Neutral</Button>
-      <Button variant="primary">primary</Button>
-      <Button variant="secondary">secondary</Button>
-      <Button variant="accent">accent</Button>
-      <Button variant="ghost">ghost</Button>
-      <Button variant="success">success</Button>
-      <Button variant="info">info</Button>
-      <Button variant="error">error</Button>
-      <Button variant="warning">warning</Button>
-      <Button isLink={true}>Link</Button>
-    </>
-  ),
-};
+type Story=Story<typeof Button>
+export const BrandColors:Story={
+    render:()=>(
+        <>
+        <Button>Default</Button>
+        <Button variant='neutral'>Neutral</Button>
+        <Button variant='primary'>Primary</Button>
+        <Button variant='secondary'>Secondary</Button>
+        <Button variant='accent'>Accent</Button>
+        <Button variant='ghost'>Ghost</Button>
+        <Button variant='success'>Success</Button>
+        <Button variant='info'>Info</Button>
+        <Button variant='error'>Error</Button>
+        <Button variant='warning'>Warning</Button>
+        <Button isLink={true}>Link</Button>
+        </>
+    )
+}
