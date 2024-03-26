@@ -25,7 +25,7 @@ export const LoadingSpinner: Story = {
         </>
     ),
 };
-
+// سلام خوبی مرسی ژاله
 export const LoadingSpinnerWithColors: Story = {
     render: () => (
         <>
