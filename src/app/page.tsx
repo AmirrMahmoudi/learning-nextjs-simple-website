@@ -6,6 +6,8 @@ import { HomeHeroSection } from "./_components/home-hero-section/home-hero-secti
 import { CourseSummary } from "@/types/course-summary.interface";
 import { CourseCardList } from "./(courses)/_conponents/course-card-list";
 
+import { IconClock } from "./_components/icons/icons";
+
 async function getNewestCourses(count: number): Promise<CourseSummary[]> {
   const res = await fetch(
     `https://api.classbon.com/api/courses/newest/${count}`,
