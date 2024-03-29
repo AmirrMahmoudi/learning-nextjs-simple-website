@@ -6,6 +6,6 @@ export interface BlogPostSummary {
   studyTime: number;
   numberOfViews: number;
   author: string;
-  numbeOfComments: number;
+  numberOfComments: number;
   isNew: boolean;
 }
