@@ -1,32 +1,34 @@
 import { Button } from "./_components/button";
 import { HomeHeroSection } from "./_components/home-hero-section/home-hero-section";
 import { CourseSummary } from "@/types/course-summary.interface";
-import { CourseCardList } from "./(courses)/_conponents/course-card-list";
+import { CourseCardList } from "./(courses)/_components/course-card-list";
 
 import { IconArrowLeftFill } from "./_components/icons/icons";
 import { homeFeatures } from "./data/home-features";
 import Feature from "./_components/feature/feature";
 import { BlogPostSummary } from "@/types/blog-post-summary.interface";
-import { BlogPostCardList } from './(blog)/_components/blog-post-card-list';
+import { BlogPostCardList } from "./(blog)/_components/blog-post-card-list";
+import { API_URL } from "@/configs/global";
 
 async function getNewestCourses(count: number): Promise<CourseSummary[]> {
+  const res = await fetch(`${API_URL}/courses/newest/${count}`, {
+    next: {
+      revalidate: 24 * 60 * 60,
+    },
+  });
+  return res.json();
+}
+
+async function getNewestPosts(count: number): Promise<BlogPostSummary[]> {
   const res = await fetch(
-    `https://api.classbon.com/api/courses/newest/${count}`,
+    `${API_URL}/blog/newest/${count}`,
+
     {
       next: {
         revalidate: 24 * 60 * 60,
       },
     }
   );
-  return res.json();
-}
-
-async function getNewestPosts(count: number): Promise<BlogPostSummary[]> {
-  const res = await fetch(`https://api.classbon.com/api/blog/newest/${count}`, {
-    next: {
-      revalidate: 24 * 60 * 60,
-    },
-  });
   return res.json();
 }
 
