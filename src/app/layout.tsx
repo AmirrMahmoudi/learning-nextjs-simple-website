@@ -5,7 +5,6 @@ import localFont from "next/font/local";
 
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
-
 const figtree = Figtree({
   display: "swap",
   subsets: ["latin"],
