@@ -34,6 +34,7 @@ httpService.interceptors.response.use(
     return response;
   },
   (error) => {
+    debugger;
     if (error?.response) {
       const statusCode = error?.response?.status;
       if (statusCode >= 400) {
@@ -69,11 +70,11 @@ httpService.interceptors.response.use(
             detail: "خطای سرور",
           } as UnhandledException;
         }
-      } else {
-        throw {
-          detail: "خطای شبکه",
-        } as NetworkError;
       }
+    } else {
+      throw {
+        detail: "خطای شبکه",
+      } as NetworkError;
     }
   }
 );
@@ -90,6 +91,7 @@ async function readData<T>(
   url: string,
   headers?: AxiosRequestHeaders
 ): Promise<T> {
+  debugger;
   const options: AxiosRequestConfig = {
     headers: headers,
     method: "GET",
