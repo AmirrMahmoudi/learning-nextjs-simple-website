@@ -1,26 +1,12 @@
 import { API_URL } from "@/configs/global";
 
-import {
-  BadRequestError,
-  NetworkError,
-  NotFoundError,
-  UnauthorizedError,
-  UnhandledException,
-  ValidationError,
-} from "@/types/http-errors.interface";
+import { ApiError } from "@/types/http-errors.interface";
 import axios, {
   AxiosRequestConfig,
   AxiosRequestHeaders,
   AxiosResponse,
 } from "axios";
-
-type ApiError =
-  | BadRequestError
-  | NetworkError
-  | NotFoundError
-  | UnhandledException
-  | UnhandledException
-  | ValidationError;
+import { errorHandler, networkErrorStrategy } from "./http-error-strategies";
 
 export const httpService = axios.create({
   baseURL: API_URL,
@@ -34,47 +20,15 @@ httpService.interceptors.response.use(
     return response;
   },
   (error) => {
-    debugger;
     if (error?.response) {
       const statusCode = error?.response?.status;
       if (statusCode >= 400) {
         const errorData: ApiError = error.response?.data;
-        if (statusCode === 400 && !errorData.errors) {
-          throw {
-            ...errorData,
-          } as BadRequestError;
-        }
 
-        if (statusCode === 400 && errorData.errors) {
-          throw {
-            ...errorData,
-          } as ValidationError;
-        }
-
-        if (statusCode === 404) {
-          throw {
-            ...errorData,
-            detail: "سرویس مورد نظر یافت نشد",
-          } as NotFoundError;
-        }
-
-        if (statusCode === 403) {
-          throw {
-            ...errorData,
-            detail: "دسترسی به سرویس مورد نظر امگان پذیر نمی باشد",
-          } as UnauthorizedError;
-        }
-        if (statusCode >= 500) {
-          throw {
-            ...errorData,
-            detail: "خطای سرور",
-          } as UnhandledException;
-        }
+        errorHandler[statusCode](errorData);
       }
     } else {
-      throw {
-        detail: "خطای شبکه",
-      } as NetworkError;
+      networkErrorStrategy();
     }
   }
 );
@@ -91,7 +45,6 @@ async function readData<T>(
   url: string,
   headers?: AxiosRequestHeaders
 ): Promise<T> {
-  debugger;
   const options: AxiosRequestConfig = {
     headers: headers,
     method: "GET",
