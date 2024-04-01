@@ -1,13 +1,14 @@
 interface Problem {
   title: string;
-  statusCode: number;
+  status: number;
   detail?: string;
   errors?: Record<string, string[]>;
 }
+
 interface BadRequestError extends Problem {}
 interface UnauthorizedError extends Problem {}
 interface ValidationError extends Problem {}
-interface NorFoundError extends Problem {}
+interface NotFoundError extends Problem {}
 interface UnhandledException extends Problem {}
 interface NetworkError extends Problem {}
 
@@ -16,7 +17,7 @@ export type {
   BadRequestError,
   UnauthorizedError,
   ValidationError,
-  NorFoundError,
+  NotFoundError,
   UnhandledException,
   NetworkError,
 };
