@@ -5,6 +5,7 @@ import localFont from "next/font/local";
 
 import { Header } from "./_components/header";
 import { Footer } from "./_components/footer";
+import QueryProvider from "@/providers/react-query-provider";
 const figtree = Figtree({
   display: "swap",
   subsets: ["latin"],
@@ -59,9 +60,11 @@ export default function RootLayout({
       className={`dark ${figtree.variable} ${vazirmatn.variable}`}
     >
       <body className="min-h-screen grid grid-rows-[80px_1fr_auto] dark:bg-base-100 dark:text-base-content">
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <QueryProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </QueryProvider>
       </body>
     </html>
   );
