@@ -1,14 +1,6 @@
-export interface CourseComment {
-  id: number;
-  data: string;
-  userId: number | undefined;
-  fullName: string;
-  commentText: string;
-  score: number | null;
-  isResponse: boolean;
-}
+import { Comment } from "@/types/comment.interface";
 
 export interface CourseCommentList {
-  data: CourseComment[];
+  data: Comment[];
   nextPage: number;
 }
