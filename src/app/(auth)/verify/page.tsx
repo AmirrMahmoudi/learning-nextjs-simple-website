@@ -1,10 +1,9 @@
-export default async function Verify(){
+import Link from "next/link";
 
-    return (
-<div className="text-5xl flex justify-center items-center w-full">
-            <h1>This is verify page</h1>
-    
-        </div>
-    )
-    
-    }
+export default async function Verify() {
+  return (
+    <div >
+      <Link href="/signin">Go to Signin Page</Link>
+    </div>
+  );
+}
