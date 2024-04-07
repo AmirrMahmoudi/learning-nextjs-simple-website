@@ -7,6 +7,8 @@ import { SignIn } from "../types/signin.types";
 import { TextInput } from "@/app/_components/form-input";
 import { useSignIn } from "../_api/signin";
 import { useRouter } from "next/navigation";
+import { useNotificationStore } from "@/store/notification.strore";
+import { useEffect } from "react";
 
 const SignInForm = () => {
   const {
@@ -27,6 +29,18 @@ const SignInForm = () => {
   const onSubmit = (data: SignIn) => {
     signIn.submit(data);
   };
+
+  const showNotification = useNotificationStore(
+    (state) => state.showNotification
+  );
+
+  useEffect(() => {
+    showNotification({
+      type: "error",
+      message: "error",
+    });
+  }, []);
+
   return (
     <>
       <h5 className="text-2xl">ورود | ثبت نام</h5>
