@@ -2,13 +2,13 @@
 
 import { Button } from "@/app/_components/button/button";
 import { Textbox } from "@/app/_components/textbox";
-import { useForm } from "react-hook-form";
 import { SignIn } from "../types/signin.types";
+import { useForm } from "react-hook-form";
 import { TextInput } from "@/app/_components/form-input";
 import { useSignIn } from "../_api/signin";
 import { useRouter } from "next/navigation";
-import { useNotificationStore } from "@/store/notification.strore";
 import { useEffect } from "react";
+import { useNotificationStore } from "@/store/notification.store";
 
 const SignInForm = () => {
   const {
@@ -36,8 +36,8 @@ const SignInForm = () => {
 
   useEffect(() => {
     showNotification({
-      type: "error",
-      message: "error",
+      type: "success",
+      message: "عملیات با موفقیت انجام شد",
     });
   }, []);
 
@@ -49,11 +49,6 @@ const SignInForm = () => {
         className="flex flex-col gap-6 mt-16"
         onSubmit={handleSubmit(onSubmit)}
       >
-        {/* <Textbox
-          {...register("mobile", { required: "شماره موبایل الزامی است" })}
-          placeholder="شماره موبایل"
-        /> */}
-
         <TextInput<SignIn>
           register={register}
           name={"mobile"}
