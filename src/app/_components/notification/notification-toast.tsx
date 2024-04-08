@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Notification, NotificationType } from "@/types/notification.interface";
 import { ReactNode, useEffect, useState } from "react";
@@ -7,8 +7,6 @@ import { IconCheck, IconClose, IconError, IconInfo } from "../icons/icons";
 import { NotificationToastProps } from "./notification.types";
 import { useNotificationStore } from "@/store/notification.store";
 // import { useNotificationStore } from "@/stores/notification.store";
-
-
 
 const notificationTypes: Record<NotificationType, string> = {
   success: "bg-success",
@@ -48,6 +46,7 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({
       </div>
       <div className="text-sm font-semibold">{message}</div>
       <button
+        title="delete"
         className="mr-auto hover:text-white mt-2"
         onClick={() => dismissNotification(id)}
       >
@@ -62,4 +61,3 @@ export const NotificationToast: React.FC<NotificationToastProps> = ({
     </div>
   );
 };
-
