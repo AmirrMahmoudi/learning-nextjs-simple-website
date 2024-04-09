@@ -110,6 +110,22 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
       [`textbox-${variant}`]: variant,
     });
 
+    const handleOnPaste = (e: React.ClipboardEvent) => {
+      e.preventDefault();
+      const pastedData = e.clipboardData.getData("text");
+      if (/^\d+$/.test(pastedData)) {
+        const digits = pastedData.split("");
+        for (
+          let i = 0;
+          i < digits.length && i < inputsRef.current.length;
+          i++
+        ) {
+          inputsRef.current[i].value = digits[i];
+        }
+        sendResult();
+      }
+    };
+
     const inputs = [];
     for (let i = 0; i < length; i++) {
       inputs.push(
@@ -123,6 +139,7 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
           onChange={handleOnChange}
           onFocus={handleOnFocus}
           onKeyDown={handleOnKeyDown}
+          onPaste={handleOnPaste}
           ref={(element: HTMLInputElement) => {
             inputsRef.current[i] = element;
           }}
@@ -139,3 +156,5 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
 );
 
 export default AuthCode;
+
+//
