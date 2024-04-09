@@ -37,7 +37,7 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
 
     useEffect(() => {
       if (autoFocus) {
-        inputsRef.current[0].focus;
+        inputsRef.current[0].focus();
       }
     }, [autoFocus]);
 
@@ -47,11 +47,9 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
     };
 
     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      console.log("on change");
       const {
         target: { value, nextElementSibling },
       } = e;
-
       if (value.match(inputProps.pattern)) {
         if (nextElementSibling !== null) {
           (nextElementSibling as HTMLInputElement).focus();
@@ -59,7 +57,6 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
       } else {
         e.target.value = "";
       }
-
       sendResult();
     };
 
@@ -74,37 +71,18 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
       if (key === "Backspace") {
         if (target.value === "") {
           if (target.previousElementSibling !== null) {
-            const previousElement =
+            const previousElemnt =
               target.previousElementSibling as HTMLInputElement;
-            previousElement.value = "";
-            previousElement.focus();
+            previousElemnt.value = "";
+            previousElemnt.focus();
           }
         } else {
           target.value = "";
         }
       }
-
       sendResult();
     };
 
-    useImperativeHandle(ref, () => ({
-      focus: () => {
-        if (inputsRef.current) {
-          inputsRef.current[0].focus();
-        }
-      },
-      clear: () => {
-        if (inputsRef.current) {
-          for (let i = 0; i < inputsRef.current.length; i++) {
-            inputsRef.current[i].value = "";
-          }
-
-          inputsRef.current[0].focus();
-        }
-
-        sendResult();
-      },
-    }));
 
     const classes = classNames("textbox flex-1 w-1 text-center", {
       [`textbox-${variant}`]: variant,
@@ -113,7 +91,9 @@ const AuthCode = forwardRef<AuthCodeRef, AuthCodeProps>(
     const inputs = [];
     for (let i = 0; i < length; i++) {
       inputs.push(
-        <input 
+        <input
+          key={i}
+          title="form"
           type="text"
           maxLength={1}
           className={classes}
