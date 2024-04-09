@@ -1,9 +1,14 @@
 "use client";
+
 import AuthCode from "@/app/_components/auth-code/auth-code";
-import { Button } from "@/app/_components/button";
+import { AuthCodeRef } from "@/app/_components/auth-code/auth-code.types";
+import { Button } from "@/app/_components/button/button";
 import Link from "next/link";
+import { useRef } from "react";
+import { AuthCodeProps } from "../../../_components/auth-code/auth-code.types";
 
 const VerificationForm = () => {
+  const authCodeRef = useRef<AuthCodeRef>(null);
   return (
     <>
       <h5 className="text-2xl">کد تایید</h5>
@@ -11,13 +16,15 @@ const VerificationForm = () => {
       <form className="flex flex-col gap-6 mt-10 flex-1">
         <AuthCode
           className="mt-10"
+          ref={authCodeRef}
           onChange={(value) => {
-            // setValue
             console.log(value);
           }}
         />
         Timer
-        <Button isLink={true}>ارسال مجدد کد تایید</Button>
+        <Button isLink={true} onClick={authCodeRef.current?.clear}>
+          ارسال مجدد کد تایید
+        </Button>
         <Button type="submit" variant="primary">
           تایید و ادامه
         </Button>
