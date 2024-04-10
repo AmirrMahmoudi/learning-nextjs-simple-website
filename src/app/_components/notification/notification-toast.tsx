@@ -5,7 +5,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Progress } from "../progress/progress";
 import { IconCheck, IconClose, IconError, IconInfo } from "../icons/icons";
 import { NotificationToastProps } from "./notification.types";
-import { useNotificationStore } from "@/store/notification.store";
+import { useNotificationStore } from "@/stores/notification.store";
 // import { useNotificationStore } from "@/stores/notification.store";
 
 const notificationTypes: Record<NotificationType, string> = {

@@ -120,7 +120,11 @@ export const Timer = forwardRef<TimerRef, TimerProps>(
     return (
       <div className={`${classes} flex flex-row gap-4`} lang="en">
         {timeUnits.map(({ show, unit, value, maxValue, datePart }) =>
-          show ? renderTimerProgress(unit, value, maxValue, datePart) : null
+          show ? (
+            <span key={datePart}>
+              {renderTimerProgress(unit, value, maxValue, datePart)}
+            </span>
+          ) : null
         )}
       </div>
     );

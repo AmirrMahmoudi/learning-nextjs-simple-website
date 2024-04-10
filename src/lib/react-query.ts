@@ -1,7 +1,7 @@
 import { Problem } from "@/types/http-errors.interface";
 import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { Notification } from "@/types/notification.interface";
-import { showNotification } from "@/store/notification.store";
+import { showNotification } from "@/stores/notification.store";
 import { values } from "lodash";
 
 export const queryClient = new QueryClient({

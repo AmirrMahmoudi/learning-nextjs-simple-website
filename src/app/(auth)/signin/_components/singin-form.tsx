@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import {
   showNotification,
   useNotificationStore,
-} from "../../../../store/notification.store";
+} from "../../../../stores/notification.store";
 
 const SignInForm = () => {
   const {

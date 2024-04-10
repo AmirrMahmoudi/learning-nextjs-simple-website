@@ -1,5 +1,5 @@
 "use client";
-import { useNotificationStore } from "@/store/notification.store";
+import { useNotificationStore } from "@/stores/notification.store";
 import { NotificationToast } from "./notification-toast";
 import { NotificationProps } from "./notification.types";
 import { useEffect } from "react";
