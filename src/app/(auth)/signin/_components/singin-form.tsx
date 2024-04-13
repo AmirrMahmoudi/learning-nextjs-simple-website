@@ -6,10 +6,9 @@ import { useForm } from "react-hook-form";
 import { TextInput } from "@/app/_components/form-input";
 import { useSignIn } from "../_api/signin";
 import { useRouter } from "next/navigation";
-import {
-  showNotification,
-  useNotificationStore,
-} from "../../../../stores/notification.store";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNotificationStore } from "../../../../stores/notification.store";
+import { signInSchema } from "../_types/signin.schema";
 
 const SignInForm = () => {
   const {
@@ -17,7 +16,7 @@ const SignInForm = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm<SignIn>();
+  } = useForm<SignIn>({ resolver: zodResolver(signInSchema) });
 
   const router = useRouter();
 
@@ -50,17 +49,6 @@ const SignInForm = () => {
         <TextInput<SignIn>
           register={register}
           name={"mobile"}
-          rules={{
-            required: "شماره موبایل الزامی است",
-            maxLength: {
-              value: 11,
-              message: "شماره موبایل باید 11 رقم باشد",
-            },
-            minLength: {
-              value: 11,
-              message: "شماره موبایل باید 11 رقم باشد",
-            },
-          }}
           errors={errors}
         />
 
