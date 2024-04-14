@@ -11,7 +11,6 @@ import { signInSchema } from "../_types/signin.schema";
 import { signInAction } from "@/actions/auth";
 import { useFormState } from "react-dom";
 import { useEffect } from "react";
-import { Alert } from "@/app/_components/alert";
 
 const SignInForm = () => {
   const {
@@ -21,7 +20,7 @@ const SignInForm = () => {
     getValues,
   } = useForm<SignIn>({ resolver: zodResolver(signInSchema) });
 
-  const [formState, action] = useFormState(signInAction, { message: "" });
+  const [formState, action] = useFormState(signInAction, null);
 
   const router = useRouter();
 
@@ -30,25 +29,25 @@ const SignInForm = () => {
   );
 
   useEffect(() => {
-    if (formState.message) {
+    if (formState && !formState.isSuccess && formState.error) {
       showNotification({
-        message: formState.message,
+        message: formState.error?.detail!,
         type: "error",
       });
+    } else if (formState && formState.isSuccess) {
+      router.push(`/verify?mobile=${getValues("mobile")}`);
+      showNotification({
+        message: "کد تایید به شماره شما ارسال شد",
+        type: "info",
+      });
+      console.log(formState.response);
     }
-  }, [formState, showNotification]);
-
-  //   router.push(`/verify?mobile=${getValues("mobile")}`);
-  //   showNotification({
-  //     message: "کد تایید به شماره شما ارسال شد",
-  //     type: "info",
-  //   });
+  }, [formState, showNotification, router, getValues]);
 
   const onSubmit = (data: SignIn) => {
     const formData = new FormData();
     formData.append("mobile", data.mobile);
     action(formData);
-    // signIn.submit(data);
   };
 
   return (
@@ -68,9 +67,6 @@ const SignInForm = () => {
         <Button type="submit" variant="primary">
           تایید و دریافت کد
         </Button>
-        {formState.message && (
-          <Alert variant="error">{formState.message}</Alert>
-        )}
       </form>
     </>
   );
