@@ -22,7 +22,6 @@ declare module "next-auth/jwt" {
     user: UserToken;
   }
 }
-
 export const {
   signIn,
   signOut,
