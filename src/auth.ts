@@ -3,12 +3,20 @@ import { authConfig } from "./auth.config";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { createData } from "./core/http-service/http-service";
 import { VerifyUserModel } from "./app/(auth)/verify/_types/verify-user.type";
-import { User } from "./types/user.interface";
+import { User, UserToken } from "./types/user.interface";
 import { API_URL } from "./configs/global";
+import { jwtDecode } from "jwt-decode";
+import { JWT } from "next-auth/jwt";
 
 declare module "next-auth" {
   interface User {
     accessToken: string;
+  }
+}
+
+declare module "next-auth/jwt" {
+  interface JWT {
+    user: UserToken;
   }
 }
 
@@ -35,7 +43,6 @@ export const {
               code: credentials.code as string,
             }
           );
-          console.log(user);
           //   Auth.js expects the user object to be returned
           return {
             accessToken: user.token,
@@ -46,4 +53,16 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = jwtDecode<UserToken>(user.accessToken);
+        token.user.accessToken = user.accessToken;
+
+        console.log(token.user);
+      }
+      return token;
+    },
+    // async session() {},
+  },
 });
