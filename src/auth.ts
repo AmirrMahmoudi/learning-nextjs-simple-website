@@ -35,6 +35,7 @@ export const {
               code: credentials.code as string,
             }
           );
+          console.log(user);
           //   Auth.js expects the user object to be returned
           return {
             accessToken: user.token,
