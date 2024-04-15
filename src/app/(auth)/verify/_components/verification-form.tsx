@@ -19,7 +19,7 @@ import { sendAuthCode } from "@/actions/auth";
 
 const getTwoMinutesFromNow = () => {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 10);
+  time.setSeconds(time.getSeconds() + 120);
   return time;
 };
 
